@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Qwen Model Demo</title>
+</head>
+<body>
+    <h1>Qwen Text Generator</h1>
+    <form method="post" action="/generate">
+        <textarea name="text" rows="5" cols="60" placeholder="Enter your prompt here...">{{ text if text else '' }}</textarea><br>
+        
+        Max Length: <input type="number" name="max_length" value="{{ max_length if max_length else 200 }}"><br><br>
+        
+        Select Model:
+        <select name="model_choice">
+            <!-- LoRA adapters -->
+            <option value="cancer" {% if model_choice == "cancer" %}selected{% endif %}>Lung Cancer LoRA</option>
+            <option value="cancer2" {% if model_choice == "cancer2" %}selected{% endif %}>All Cancer LoRA</option>
+            <option value="cancer3" {% if model_choice=="cancer3" %}selected{% endif %}>Breast Cancer LoRA</option>
+            <!-- SFT model -->
+            <option value="sft" {% if model_choice=="sft" %}selected{% endif %}>Cancer SFT Final</option>
+            <!-- Raw pretrained -->
+            <option value="qwen3" {% if model_choice=="qwen3" %}selected{% endif %}>Qwen3-0.6B (Raw Pretrained)</option>
+        </select><br><br>
+        
+        <input type="submit" value="Generate">
+    </form>
+
+    {% if output %}
+        <h2>Output:</h2>
+        <p>{{ output }}</p>
+    {% endif %}
+</body>
+</html>
